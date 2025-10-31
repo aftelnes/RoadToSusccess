@@ -17,6 +17,7 @@ type Props = TouchableOpacityProps & {
     size?: number;
   };
   size?: "small" | "normal" | "large";
+  sx?: "fullheight";
   variant?: "delete" | "edit" | "save" | "default";
 };
 
@@ -27,6 +28,7 @@ export const StyledButton = ({
   size = "normal",
   style,
   disabled,
+  sx,
   ...props
 }: Props) => {
   return (
@@ -37,6 +39,9 @@ export const StyledButton = ({
         styles.base,
         variant === "delete" && styles.delete,
         size === "small" && styles.small,
+        size === "large" && styles.large,
+        sx === "fullheight" && styles.fullheight,
+
         disabled && styles.disabled,
         style,
       ]}
@@ -71,7 +76,14 @@ const styles = StyleSheet.create({
     paddingHorizontal: 8,
     borderRadius: 5,
   },
+  large: {
+    paddingHorizontal: 30,
+  },
   disabled: {
     backgroundColor: "#353535ff",
+  },
+  fullheight: {
+    height: "100%",
+    borderRadius: 15,
   },
 });

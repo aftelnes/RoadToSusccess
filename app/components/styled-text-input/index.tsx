@@ -1,5 +1,6 @@
-import { STYLES } from "@/app/consts";
 import { TextInput, TextInputProps, StyleSheet } from "react-native";
+
+import { STYLES } from "@/app/consts";
 
 type Props = TextInputProps;
 
@@ -15,12 +16,12 @@ export const StyledTextInput = ({ ...props }: Props) => {
 
 const styles = StyleSheet.create({
   base: {
-    padding: 20,
+    padding: 10,
     color: STYLES.PRIMATY_TEXT,
-    borderRadius: 12,
+    borderRadius: 8,
     borderWidth: 1,
     borderColor: "#838383",
-    height: 64,
+    height: 40,
     flex: 1,
   },
 });

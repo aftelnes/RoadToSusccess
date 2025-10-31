@@ -26,6 +26,8 @@ export const TodoCreate = ({ addTodo }: Props) => {
           setTodoTitle("");
         }}
         disabled={!todoTitle}
+        size="large"
+        sx="fullheight"
       />
     </View>
   );
@@ -38,6 +40,6 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     gap: 10,
     paddingHorizontal: 20,
-    paddingVertical: 20,
+    paddingVertical: 10,
   },
 });

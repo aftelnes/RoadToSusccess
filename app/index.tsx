@@ -1,14 +1,14 @@
-import { StatusBar, View, StyleSheet } from "react-native";
-import { useState } from "react";
 import "react-native-get-random-values";
 
-import { Header } from "./layout/header";
-import { STYLES } from "./consts";
-import { ITodo } from "./types/todo";
-import { TodoList } from "./layout/todo-list";
-import { TodoCreate } from "./layout/todo-create";
-
+import { StatusBar, View, StyleSheet } from "react-native";
+import { useState } from "react";
 import { nanoid } from "nanoid";
+
+import { TodoCreate } from "./layout/todo-create";
+import { TodoList } from "./layout/todo-list";
+import { Header } from "./layout/header";
+import { ITodo } from "./types/todo";
+import { STYLES } from "./consts";
 
 const styles = StyleSheet.create({
   container: {
