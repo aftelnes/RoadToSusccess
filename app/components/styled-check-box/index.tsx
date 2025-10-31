@@ -3,12 +3,13 @@ import { TouchableOpacity } from "react-native";
 
 type Props = {
   checked: boolean;
-  onCheck: () => void;
+  id: string;
+  setCheckToDo: (id: string) => void;
 };
 
-export const StyledCheckBox = ({ checked, onCheck }: Props) => {
+export const StyledCheckBox = ({ checked, id, setCheckToDo }: Props) => {
   return (
-    <TouchableOpacity onPress={onCheck}>
+    <TouchableOpacity onPress={() => setCheckToDo(id)}>
       <Ionicons
         name={checked ? "checkmark-circle" : "ellipse-outline"}
         size={24}

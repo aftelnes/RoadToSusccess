@@ -1,14 +1,14 @@
 import {
+  StyleSheet,
   TouchableOpacity,
   TouchableOpacityProps,
-  StyleSheet,
 } from "react-native";
 
 import { Ionicons } from "@expo/vector-icons";
 
-import { StyledText } from "../styled-text";
 import { STYLES } from "@/app/consts";
 import { ComponentProps } from "react";
+import { StyledText } from "../styled-text";
 
 type Props = TouchableOpacityProps & {
   label?: string;
@@ -18,7 +18,8 @@ type Props = TouchableOpacityProps & {
   };
   size?: "small" | "normal" | "large";
   sx?: "fullheight";
-  variant?: "delete" | "edit" | "save" | "default";
+  variant?: "delete" | "edit" | "save" | "default" | "subtle";
+  iconColor?: string;
 };
 
 export const StyledButton = ({
@@ -28,6 +29,7 @@ export const StyledButton = ({
   size = "normal",
   style,
   disabled,
+  iconColor,
   sx,
   ...props
 }: Props) => {
@@ -38,10 +40,11 @@ export const StyledButton = ({
       style={[
         styles.base,
         variant === "delete" && styles.delete,
+        variant === "save" && styles.save,
         size === "small" && styles.small,
         size === "large" && styles.large,
         sx === "fullheight" && styles.fullheight,
-
+        variant === "subtle" && { backgroundColor: iconColor + "33" },
         disabled && styles.disabled,
         style,
       ]}
@@ -50,7 +53,7 @@ export const StyledButton = ({
         <Ionicons
           name={icon.name}
           size={icon.size ? icon.size : 16}
-          color={STYLES.PRIMATY_TEXT}
+          color={iconColor ? iconColor : STYLES.PRIMATY_TEXT}
         />
       )}
       {label && <StyledText>{label}</StyledText>}
@@ -84,6 +87,9 @@ const styles = StyleSheet.create({
   },
   fullheight: {
     height: "100%",
-    borderRadius: 15,
+    borderRadius: 10,
+  },
+  save: {
+    backgroundColor: "#01c53c",
   },
 });

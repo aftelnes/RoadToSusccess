@@ -1,4 +1,4 @@
-import { View, StyleSheet } from "react-native";
+import { StyleSheet, View } from "react-native";
 
 import { StyledText } from "@/app/components/styled-text";
 import { STYLES } from "@/app/consts";
@@ -12,7 +12,7 @@ export const Header = ({ totalTodos, completedTodos }: Props) => {
   return (
     <View style={styles.container}>
       <View style={styles.content}>
-        <StyledText>Road to the Dream</StyledText>
+        <StyledText style={styles.title}>Road to the Dream</StyledText>
         <StyledText>Октябрь 29, 2025</StyledText>
       </View>
 
@@ -35,5 +35,10 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     gap: 10,
+  },
+  title: {
+    color: "#ffdb4cff",
+    fontSize: 20,
+    fontStyle: "italic",
   },
 });

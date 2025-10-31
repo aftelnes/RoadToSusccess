@@ -1,20 +1,22 @@
-import { StyleSheet, View, Animated } from "react-native";
-import { useState, useRef, useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
+import { Animated, StyleSheet, TouchableOpacity, View } from "react-native";
 
-import { StyledCheckBox } from "@/app/components/styled-check-box";
 import { StyledButton } from "@/app/components/styled-button";
+import { StyledCheckBox } from "@/app/components/styled-check-box";
 import { StyledText } from "@/app/components/styled-text";
-import { ITodo } from "@/app/types/todo";
 import { STYLES } from "@/app/consts";
+import { ITodo } from "@/app/types/todo";
 
 type Props = {
   todo: ITodo;
   deleteTodo: (id: string) => void;
+  setCheckToDo: (id: string) => void;
 };
 
-export const Todo = ({ todo, deleteTodo }: Props) => {
+export const Todo = ({ todo, deleteTodo, setCheckToDo }: Props) => {
+  const [expanded, setExpanded] = useState(false);
   const [confirmDelete, setConfirmDelete] = useState(false);
-  const fadeAnim = useRef(new Animated.Value(1)).current;
+  const fadeAnim = useRef(new Animated.Value(0)).current;
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
@@ -42,6 +44,24 @@ export const Todo = ({ todo, deleteTodo }: Props) => {
     };
   }, [confirmDelete]);
 
+  const toggleExpanded = () => {
+    if (expanded) {
+      // скрыть элементы плавно
+      Animated.timing(fadeAnim, {
+        toValue: 0,
+        duration: 250,
+        useNativeDriver: false,
+      }).start(() => setExpanded(false));
+    } else {
+      setExpanded(true);
+      Animated.timing(fadeAnim, {
+        toValue: 1,
+        duration: 250,
+        useNativeDriver: false,
+      }).start();
+    }
+  };
+
   const handleTrashPress = () => {
     if (!confirmDelete) {
       setConfirmDelete(true);
@@ -54,36 +74,60 @@ export const Todo = ({ todo, deleteTodo }: Props) => {
   };
 
   return (
-    <View
+    <TouchableOpacity
+      activeOpacity={0.8}
+      onPress={toggleExpanded}
       style={[styles.container, todo.isCompleted && styles.completedContainer]}
     >
-      <View style={styles.checkTitleContainer}>
-        <StyledCheckBox checked={todo.isCompleted} onCheck={() => {}} />
-        <StyledText>{todo.title}</StyledText>
+      <View style={styles.dataContainer}>
+        <View style={styles.checkTitleContainer}>
+          <StyledCheckBox
+            checked={todo.isCompleted}
+            setCheckToDo={setCheckToDo}
+            id={todo.id}
+          />
+          <StyledText>{todo.title}</StyledText>
+        </View>
+
+        {expanded && (
+          <Animated.View style={{ opacity: fadeAnim }}>
+            <StyledText style={styles.description}>
+              текст описания екст описания екст описания екст описания екст
+              описания екст описания екст описания екст описания
+            </StyledText>
+          </Animated.View>
+        )}
       </View>
 
-      <View style={styles.actions}>
-        <StyledButton icon={{ name: "pencil" }} size="small" />
+      {expanded && (
+        <Animated.View style={[styles.actions, { opacity: fadeAnim }]}>
+          <StyledButton
+            icon={{ name: "pencil" }}
+            size="small"
+            iconColor="#f3e200"
+            variant="subtle"
+          />
 
-        <Animated.View style={{ opacity: fadeAnim }}>
           {confirmDelete ? (
             <StyledButton
               icon={{ name: "checkmark" }}
+              iconColor="#ff3737"
+              variant="subtle"
               size="small"
-              variant="delete"
               onPress={handleConfirmPress}
             />
           ) : (
             <StyledButton
               icon={{ name: "trash" }}
-              variant="delete"
+              iconColor="#ff3737"
+              variant="subtle"
               size="small"
               onPress={handleTrashPress}
             />
           )}
         </Animated.View>
-      </View>
-    </View>
+      )}
+    </TouchableOpacity>
   );
 };
 
@@ -108,5 +152,19 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     gap: 10,
+    maxWidth: 280,
+  },
+  dataContainer: {
+    flexDirection: "column",
+    gap: 8,
+  },
+  description: {
+    maxWidth: 280,
+    color: "#adadadff",
+  },
+  divider: {
+    height: 1,
+    backgroundColor: "#ccc",
+    marginVertical: 8,
   },
 });

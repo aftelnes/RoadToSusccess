@@ -1,8 +1,8 @@
-import { View, StyleSheet } from "react-native";
 import { useState } from "react";
+import { StyleSheet, View } from "react-native";
 
-import { StyledTextInput } from "@/app/components/styled-text-input";
 import { StyledButton } from "@/app/components/styled-button";
+import { StyledTextInput } from "@/app/components/styled-text-input";
 import { ITodo } from "@/app/types/todo";
 
 type Props = {
@@ -28,6 +28,7 @@ export const TodoCreate = ({ addTodo }: Props) => {
         disabled={!todoTitle}
         size="large"
         sx="fullheight"
+        variant="save"
       />
     </View>
   );

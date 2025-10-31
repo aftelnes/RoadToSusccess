@@ -1,14 +1,14 @@
 import "react-native-get-random-values";
 
-import { StatusBar, View, StyleSheet } from "react-native";
-import { useState } from "react";
 import { nanoid } from "nanoid";
+import { useCallback, useState } from "react";
+import { StatusBar, StyleSheet, View } from "react-native";
 
+import { STYLES } from "./consts";
+import { Header } from "./layout/header";
 import { TodoCreate } from "./layout/todo-create";
 import { TodoList } from "./layout/todo-list";
-import { Header } from "./layout/header";
 import { ITodo } from "./types/todo";
-import { STYLES } from "./consts";
 
 const styles = StyleSheet.create({
   container: {
@@ -52,6 +52,18 @@ export default function Index() {
     ]);
   };
 
+  const setCheckTodo = useCallback((id: string) => {
+    setTodos((prev) =>
+      prev.map((item) => {
+        if (item.id === id) {
+          return { ...item, isCompleted: !item.isCompleted };
+        } else {
+          return item;
+        }
+      })
+    );
+  }, []);
+
   const deleteTodo = (id: string) => {
     setTodos((prev) => prev.filter((todo) => todo.id !== id));
   };
@@ -63,7 +75,11 @@ export default function Index() {
       <StatusBar barStyle={"light-content"} />
       <Header totalTodos={todos.length} completedTodos={completedTodos} />
       <TodoCreate addTodo={createTodo} />
-      <TodoList list={todos} deleteTodo={deleteTodo} />
+      <TodoList
+        list={todos}
+        deleteTodo={deleteTodo}
+        setCheckToDo={setCheckTodo}
+      />
     </View>
   );
 }
