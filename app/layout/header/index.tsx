@@ -9,11 +9,18 @@ type Props = {
 };
 
 export const Header = ({ totalTodos, completedTodos }: Props) => {
+    const formattedDate = new Intl.DateTimeFormat("ru-RU", {
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+    timeZone: "Europe/Amsterdam",
+  }).format(new Date());
+
   return (
     <View style={styles.container}>
       <View style={styles.content}>
         <StyledText style={styles.title}>Road to the Dream</StyledText>
-        <StyledText>Октябрь 29, 2025</StyledText>
+        <StyledText >{formattedDate}</StyledText>
       </View>
 
       <StyledText>
@@ -29,7 +36,7 @@ const styles = StyleSheet.create({
     paddingBottom: 15,
     paddingHorizontal: 20,
     backgroundColor: STYLES.SECONDARY_BG,
-    gap: 10,
+    gap: 25,
   },
   content: {
     justifyContent: "center",
@@ -39,6 +46,6 @@ const styles = StyleSheet.create({
   title: {
     color: "#ffdb4cff",
     fontSize: 20,
-    fontStyle: "italic",
+    fontFamily: "Momo",
   },
 });

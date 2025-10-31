@@ -4,6 +4,8 @@ import { nanoid } from "nanoid";
 import { useCallback, useState } from "react";
 import { StatusBar, StyleSheet, View } from "react-native";
 
+import { useFonts } from 'expo-font';
+
 import { STYLES } from "./consts";
 import { Header } from "./layout/header";
 import { TodoCreate } from "./layout/todo-create";
@@ -35,6 +37,10 @@ export const defaultTodos: ITodo[] = [
 ];
 
 export default function Index() {
+    const [fontsLoaded] = useFonts({
+    'Momo': require('../assets/fonts/MomoSignature-Regular.ttf'),
+  });
+
   const [todos, setTodos] = useState<ITodo[]>(defaultTodos);
 
   const createTodo = (

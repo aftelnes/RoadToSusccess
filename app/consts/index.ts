@@ -6,5 +6,5 @@ export const STYLES = {
   //   TODO_COMPLETED_BG: "#005e17ff",
 
   PRIMATY_TEXT: "#fff",
-  TEST: "#fff",
+  TEST: "#ff3737ff",
 };

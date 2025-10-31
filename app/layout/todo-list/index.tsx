@@ -1,5 +1,7 @@
-import { ITodo } from "@/app/types/todo";
 import { FlatList, StyleSheet, View } from "react-native";
+
+import { ITodo } from "@/app/types/todo";
+
 import { Todo } from "../todo";
 
 type Props = {
@@ -10,10 +12,11 @@ type Props = {
 
 export const TodoList = ({ list, deleteTodo, setCheckToDo }: Props) => {
   return (
-    <View>
+    <View style={{ flex: 1 }}>
       <FlatList
         style={styles.base}
         data={list}
+        contentContainerStyle={{ paddingBottom: 15, paddingTop: 5 }}
         keyExtractor={(todo) => todo.id.toString()}
         renderItem={({ item }) => (
           <Todo
@@ -29,7 +32,7 @@ export const TodoList = ({ list, deleteTodo, setCheckToDo }: Props) => {
 
 const styles = StyleSheet.create({
   base: {
-    marginBottom: 40,
+    flex: 1,
     paddingHorizontal: 20,
   },
 });
